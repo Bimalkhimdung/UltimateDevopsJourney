@@ -1,0 +1,50 @@
+#!/bin/bash
+
+###Author : Bimal Rai , raibimal.com.np
+
+
+##scripting for resource allocation for aws server
+
+#settingfor debugging state code can run without this code line
+
+
+set -x
+
+
+
+#list s3 buckets
+
+aws s2 ls
+echo"Print list of s2 buckets"
+
+#list ec2 instances
+
+aws ec2 describe-instances
+
+echo"Print list of EC2 buckets"
+
+
+#list lambds functions
+
+
+
+aws lambda list-functions
+
+echo"Print list of lambda functions"
+
+#list IAM users
+
+
+
+aws iam list-users
+
+echo"Print list of IAM users" 
+
+#list of Pipelines
+
+aws list-pipelines 
+
+echo"Print list of Pipelines "
+
+
+
