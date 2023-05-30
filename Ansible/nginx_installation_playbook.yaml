@@ -1,0 +1,30 @@
+---
+- name: nginx installation playbook
+  hosts: all
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: update nginx packages
+      apt:
+        update_cache: yes
+
+    - name: install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: reload nginx
+      service:
+        name: nginx
+        state: reloaded
+
+    - name: check nginx status
+      service:
+        name: nginx
+        state: started
