@@ -1,3 +1,6 @@
+## Introduction to Ansible
+
+Ansible is an open-source automation tool used for configuration management, application deployment, and task automation. It uses a simple YAML syntax to describe and execute tasks, making it easy to learn and use.
 ## Advantages of Ansible
 
 - Simple to learn and use
