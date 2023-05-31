@@ -1,0 +1,13 @@
+--- 
+- name: Apt_module for installing packages
+  hosts: all
+  become: yes
+  become_user: root
+  tasks:
+  - name: get updated 
+    apt:
+     cache_update: yes
+  - name: install latest " Open jdk "
+    apt:
+     name: openjdk-6-jdk
+     install_recomends: no
