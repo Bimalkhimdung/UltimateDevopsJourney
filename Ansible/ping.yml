@@ -1,0 +1,9 @@
+---
+ - name: Ping module
+   hosts: all
+   become: yes
+   become_user: root
+   
+   tasks: 
+   - name: Ping connection
+   ping: 
