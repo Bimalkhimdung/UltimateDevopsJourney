@@ -1,0 +1,28 @@
+---
+- name: Copy module
+  hosts: loacalhost
+  
+  tasks:
+    - name: copy a file from local machine to local machine
+      copy:
+        src: files/src.txt
+        dest: files/dest.txt
+
+---
+
+- name: copy module
+  hosts: all 
+  tasks: 
+  - name: copy file from remote machine to remote machine
+    copy: 
+    src: /etc/src.txt
+    dest: /etc/dest.txt
+
+  - name: Copy file from local machine to remote machine with user and permission
+    copy:
+      src: file/src.txt
+      dest: /etc/dest.txt
+      owner: bimal 
+      group: devops
+      mode: '600':
+
