@@ -3,8 +3,8 @@ pipeline {
     agent {
         docker { image'node:16-apline'}
     }
-    stage{
-        stage('test'){
+    stages {
+        stage ('test'){
             steps{
                 sh'node --version'
             }
