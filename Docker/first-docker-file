@@ -1,0 +1,21 @@
+FROM ubuntu: latest
+
+#set the woring directory in the image
+
+WORKDIR /app
+
+#Copy the fikes from the host file system to the image file system
+
+COPY . /app
+
+#install the necessary packages
+
+Run apt-get update && apt-get install -y python3-pip
+
+#set enviroments variables
+
+ENV NAME World
+
+#Run a command to start the application
+
+CMD ["python3", "app.py"]
