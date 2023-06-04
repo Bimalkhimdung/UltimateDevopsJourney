@@ -5,6 +5,8 @@
 
 sudo apt update
 
+set -x
+
 #Installing Java
 
 echo " installing Java "
