@@ -1,0 +1,18 @@
+---
+- name: Checking whether child or not
+  host: all
+  vars:
+    age: 25
+
+  tasks:
+    - name: Child
+      command: echo " I am a child"
+      when: age < 18
+
+    - name: Adult
+      command: echo " I am an adult"
+      when : age > 18
+
+    - name: Print message 
+      command: echo " Sucessfully executed task "
+
