@@ -43,3 +43,13 @@ Numeric values are stored in numbers. The whole number, float, and complex quali
 - We can use slice method to get values of data
 > [!NOTE] 
 > python indexing is start form 0. not 1 
+- We can use slice [:] operators to gain access of list.
+- we can change the value of list.
+
+### Tuple
+- In many ways tuple is like a list
+- List is represented by [] where as tuple is represented bt ()
+- We can not alter the value or size of tuple so it's read-only structure.
+
+### Dictionary
+A dictionary is a key-value pair set arranged in any order.
