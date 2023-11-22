@@ -23,7 +23,6 @@ This is a Day-2 of complete python course for my Ultimate Devops Journey Course.
 4. Set
 5. Dictionary
 ### Numbers
-[^1]: Numbers
 Numeric values are stored in numbers. The whole number, float, and complex qualities have a place with a Python Numbers datatype. Python offers the type() function to determine a variable's data type.
     
 ```
@@ -38,3 +37,9 @@ Numeric values are stored in numbers. The whole number, float, and complex quali
     str = "string using double quotes"  
     print(str)
     ```
+### list
+- In python list can contains different data types unlike in 'c' with only same data types
+- list are represented inside square bracket [] and values are separated by comma (,)
+- We can use slice method to get values of data
+> [!NOTE] 
+> python indexing is start form 0. not 1 
