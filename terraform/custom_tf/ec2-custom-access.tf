@@ -1,24 +1,37 @@
+variable "aws_var" {
+  type = map(string)
+  default = {
+  region_name =  "ap-southeast-1" 
+  key_pair_name = "realhrsoft"
+  default_vpc_id = "vpc-08bbada9f9013634c"
+  default_owner_id = "000348787903"
+  default_subnet_id  = "subnet-005fe372ed98fabf0"  
+  default_ami = "ami-0fa377108253bf620"
+
+  }
+  
+}
+
 provider "aws" {
-  region = "ap-southeast-1"
-  access_key = "AKIAQAFGKCS74Y433EM7"
-  secret_key = "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"
+  region = lookup(var.aws_var,"region_name")
+  # access_key = ""
+  # secret_key = ""
 }
 
 # Create a key pair
-resource "aws_key_pair" "singapoor_key" {
-  key_name   = "singapoor_key"
+resource "aws_key_pair" "realhr_key" {
+  key_name   = lookup(var.aws_var,"key_pair_name")
   public_key = file("~/.ssh/id_rsa.pub")  # Replace with the path to your public key file
   tags = {
-    Name = "sg_key"
+    Name = "realhrsoft"
   }
 }
 
 # Create a security group to allow incoming traffic on ports 80, 22, and 443
-resource "aws_security_group" "test_sg" {
-  name        = "test_security_g"
+resource "aws_security_group" "realhrsoft_sg" {
+  name        = "realhrsoft_security_group"
   description = "Allow incoming traffic on ports 80, 22, and 443"
-  vpc_id      = "vpc-08bbada9f9013634c"
-  #owner_id = "000348787903"
+  vpc_id      = lookup(var.aws_var,"default_vpc_id")
 
 #Outbound traffic rule for all traffic to your instance 
   egress {
@@ -50,26 +63,23 @@ resource "aws_security_group" "test_sg" {
   }
   
 }
-
 # Create a T4g.small EC2 instance
-resource "aws_instance" "test_instance_sg" {
-  #count = length(var.availability_zones)
-  ami             = "ami-0fa377108253bf620"  # Replace with the appropriate AMI ID for your region and instance type
+resource "aws_instance" "realhrsoft_instance" {
+  ami             = lookup(var.aws_var,"default_ami")  # Replace with the appropriate AMI ID for your region and instance type
   instance_type   = "t2.micro"
-  key_name        = aws_key_pair.singapoor_key.key_name  #this key name should be same as you created earlyer
-  vpc_security_group_ids = [aws_security_group.test_sg.id]
+  key_name        = aws_key_pair.realhr_key.key_name  #this key name should be same as you created earlyer
+  vpc_security_group_ids = [aws_security_group.realhrsoft_sg.id]
  # subnet_id       = aws_subnet.default.id  # Refer to specific instances using count.index
-  subnet_id       = "subnet-005fe372ed98fabf0"  # Refer to specific instances using count.index
-
-  #subnet_id       = aws_subnet.default.id  # Replace with your desired subnet ID within the default VPC
-
+  subnet_id = lookup(var.aws_var,"default_subnet_id")
   # User data for configuring the instance (optional)
-
   root_block_device {
-    volume_size = 8  # 60GB EBS volume
+    delete_on_termination = true
+    iops = 3000
+    volume_size = 8  # 8 GB in size.
+    volume_type = "gp3"
   }
   tags = {
-    Name = "Test instance singapor"
+    Name = "Realhrsoft"
   }
 }
 
