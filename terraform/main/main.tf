@@ -1,23 +1,25 @@
 
-provider "aws" {
-  region = lookup(var.aws_client, "region")
-  access_key = "AKIAQAFGKCS74Y433EM7"
-  secret_key = "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"
-}
+
 variable "aws_client" {
     type = map(string)
     default = {
     region = "ap-southeast-1"
     vpc = "vpc-08bbada9f9013634c"
     ami = "ami-0fa377108253bf620"
-    itype = "t2.micro"
+    instance_type = "t2.micro"
     subnet = "subnet-005fe372ed98fabf0"
-    publicip = true
+    public_ip = true
+  
     keyname = "singapoor_key"
     secgroupname = "test_security_g1"
 
     }
   
+}
+provider "aws" {
+  region = lookup(var.aws_client, "region")
+  # access_key = ""
+  # secret_key = ""
 }
 
 resource "aws_security_group" "sg_test" {
@@ -56,9 +58,9 @@ resource "aws_security_group" "sg_test" {
 
 resource "aws_instance" "project-iac" {
   ami = lookup(var.aws_client, "ami")
-  instance_type = lookup(var.aws_client, "itype")
+  instance_type = lookup(var.aws_client, "instance_type")
   subnet_id = lookup(var.aws_client, "subnet") #FFXsubnet2
-  associate_public_ip_address = lookup(var.aws_client, "publicip")
+  associate_public_ip_address = lookup(var.aws_client, "public_ip")
   key_name = lookup(var.aws_client, "keyname")
 
 
