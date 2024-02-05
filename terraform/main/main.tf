@@ -5,9 +5,9 @@ variable "aws_client" {
     default = {
     region = "ap-southeast-1"
     vpc = "vpc-08bbada9f9013634c"
-    ami = "ami-0fa377108253bf620"
+    ami = "ami-0e5d58de654dfb50d"
     instance_type = "t2.micro"
-    subnet = "subnet-005fe372ed98fabf0"
+    subnet = "subnet-0fe5eed51c604ea3a"
     public_ip = true
   
     keyname = "singapoor_key"
