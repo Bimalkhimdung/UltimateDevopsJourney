@@ -3,15 +3,15 @@
 variable "aws_client" {
     type = map(string)
     default = {
-    region = "ap-southeast-1"
-    vpc = "vpc-08bbada9f9013634c"
-    ami = "ami-0e5d58de654dfb50d"
+    region = "us-east-2"
+    vpc = "vpc-0c7814d241a42dace"
+    ami = "ami-05fb0b8c1424f266b"
     instance_type = "t2.micro"
-    subnet = "subnet-0fe5eed51c604ea3a"
+    subnet = "subnet-029e0e95d28debb9f"
     public_ip = true
   
-    keyname = "singapoor_key"
-    secgroupname = "test_security_g1"
+    keyname = "ohio_test"
+    secgroupname = "sg_test"
 
     }
   

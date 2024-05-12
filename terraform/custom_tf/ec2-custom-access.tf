@@ -4,7 +4,7 @@ variable "aws_var" {
   region_name =  "ap-southeast-1" 
   key_pair_name = "realhrsoft"
   default_vpc_id = "vpc-08bbada9f9013634c"
-  default_owner_id = "000348787903"
+  #default_owner_id = "000348787903"
   default_subnet_id  = "subnet-005fe372ed98fabf0"  
   default_ami = "ami-0fa377108253bf620"
 
