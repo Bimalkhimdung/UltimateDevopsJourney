@@ -1,0 +1,11 @@
+version: '3'
+services:
+  rhrs_backend:
+    image: dhub.aayulogic.io/v2/qaqc/be_rhrs:sprint-81
+    restart: always
+    container_name: rhrs_backend
+    volumes:
+      - ./stable80.dump:/dbdump/dump.sql
+      - rhrs_backend_db:/var/lib/postgresql/data
+volumes:
+   rhrs_backend_db:
