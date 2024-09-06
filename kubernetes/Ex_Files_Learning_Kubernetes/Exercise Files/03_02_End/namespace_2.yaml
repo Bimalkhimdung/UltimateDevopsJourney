@@ -1,0 +1,45 @@
+Resource: 
+  Bucket: 
+    Type: AWS::S3:Bucket 
+    Properties:
+      BucketName: !Sub ${AWS::StackName}-bucket-${AWS::AccountId}
+      BucketEncryptioin:
+        ServerSideEncryptionConfiguration:      
+          - ServerSideEncryptionByDefault:
+            SSEAlgorithm: aws:kms 
+            KMSMasterKeyID: alias/aws/s3
+      PublicAccessBlockConfiguration:
+        IngnorePublicAcls: true
+        RestrictPublicBuckets: true
+  BucketBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref Bucket
+      PolicyDocument:
+        Id: RequireEncrytionInTransit
+        Version: '2012-10-17'
+        Statement:
+          - Principal: '*'
+            Action: '*'
+            Effect: Deny 
+            Resource:   
+              - !GetAtt Bucket.Arn
+              - !Sub ${Bucket.Arn}/*
+            Condition:
+              Bool:
+                aws:SecureTransport: 'false'
+Metadata: 
+  AWS::Composer::ExternalResources:
+    ExternalRDS: 
+      Type: externalRDS
+      Settings: 
+        Port: !Ref ExternalRDSPort
+        Hostname: !Ref  ExternalRDSHostname 
+        SecretArn: !Ref  ExternalRDSSecretArn
+Parameters:
+  ExternalRDSPort:
+    Type: Number
+  ExternalRDSHostname:
+    Type: String 
+  ExternalRDSSecretArn:
+    Type: String 
