@@ -18,5 +18,4 @@ print(b_)
 #check if code exits
 if "code" in org:
     print("yess!!!")
-elif:
-    print("Ohhu nouu !!")
+
