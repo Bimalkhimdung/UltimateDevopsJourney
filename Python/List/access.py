@@ -14,3 +14,4 @@ print(org[:2])
 print(org[2:])
 org =[]
 print(org)
+
