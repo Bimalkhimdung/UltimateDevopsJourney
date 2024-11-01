@@ -1,0 +1,21 @@
+<!-- <!DOCTYPE html> -->
+<!-- <html> -->
+<!-- <body> -->
+{% extends 'master.html' %}
+{% block title %}
+    All User list
+{% endblock %}
+
+{% block content %}
+<h1>Users</h1>
+  
+<ul>
+  {% for x in users %}
+    <li> User Id: {{ x.user_id }} </li>
+    <li>email : {{ x.email }}</li>
+    <li>Full Name: {{ x.firstname }} {{ x.lastname }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
+<!-- </body> -->
+<!-- </html> -->
