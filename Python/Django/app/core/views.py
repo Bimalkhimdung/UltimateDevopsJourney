@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import Core
 
+
+
 #after making this view change it to urlaptterns of urls.py of same app
 # path = your api path in browser
 # view.name_of_function {api} 
@@ -28,4 +30,3 @@ def main(request):
     return HttpResponse(template.render)
 
 
-# Create your views here.

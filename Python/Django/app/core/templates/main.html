@@ -1,12 +1,12 @@
 {% extends "master.html" %}
 
-{% block content %}
-
-Your are in Django Project 
-
+{% block title %}
+    Your are in Django main Landing Page.
 {% endblock %}
-{% block content %}
 
- <h1> check for api/ <a href="index/" > api </a></h1>
- <h1> check for ap/v1/ link </h1>
- <h1> check for users/ link </h1>
+{% block content %}
+    <p> check for api/ <a href="api/"> api</a> </p>
+    <p> check for ap/v1/ <a href="api/v1"> api/v1</a> </p>
+    <p> check for users/ <a href="users/"> users</a></p>
+    <p><a href="/">Home </a></p>
+{% endblock %}
