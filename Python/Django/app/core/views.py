@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Core
+from .serializers import * 
+from django.http import JsonResponse
 
 
 
@@ -9,7 +11,7 @@ from .models import Core
 # path = your api path in browser
 # view.name_of_function {api} 
 def api(request):
-    return HttpResponse("This api from dango api call ")
+    return HttpResponse("This api from django api call ")
 
 def v1(request):
     template = loader.get_template('index.html')
@@ -26,7 +28,17 @@ def users(request):
 # route to main page
 
 def main(request):
+    
     template = loader.get_template('main.html')
     return HttpResponse(template.render)
+def User_serializer(request):
+    try:
+        user_data = Core.objects.all()
+        serializer = UserDetail(user_data, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    except Exception as e:
+        print(f"error: {e}" )
+        return JsonResponse({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 

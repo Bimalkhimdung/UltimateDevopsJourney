@@ -12,8 +12,12 @@ class Core(models.Model):
 
 # Create your models here.
 class Detail(models.Model):
+
     core = models.ForeignKey(Core, on_delete=models.CASCADE, related_name='details')
     address = models.CharField(max_length=200,blank=True)
     Phone_number = models.IntegerField(blank=True,null=True)
 
 
+class Working_Experience(models.Model):
+    working_sector =  models.CharField(max_length=200,blank=False)
+    
