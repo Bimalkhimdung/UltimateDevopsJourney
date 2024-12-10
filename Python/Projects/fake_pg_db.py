@@ -11,8 +11,8 @@ used_emails = set()
 # Connect to database
 conn = psycopg2.connect(
     dbname="test_e",
-    user="realhr",
-    password="realhr",
+    user="",
+    password="",
     host="localhost"
 )
 
