@@ -14,6 +14,7 @@ conn = psycopg2.connect(
     user="",
     password="",
     host="localhost"
+    
 )
 
 # cursor command to execute sql commands
