@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: frontend
+    namespace: production
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: frontend
+    template:
+        metadata:
+            labels:
+                app: frontend
+        spec:
+            containers:
+                - name: frontend
+                  image: realhrsoft/realhrsoft:mac_fe_v2
+                  ports:
+                    - containerPort: 80
+                  volumeMounts:
+                  - name:  static-media
+                    mountPath:  /static
+                  - name:  static-media
+                    mountPath:  /meidia                    
+            imagePullSecrets:
+                - name: registry-secret
+        volumes:
+          - name: static-media
+            persistentVolumeClaim:
+            claimName: static-media-pvc            

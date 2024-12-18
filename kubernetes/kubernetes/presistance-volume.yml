@@ -1,0 +1,25 @@
+# persistent-volume.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: static-media-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany  # Ensure it can be accessed by multiple pods
+  hostPath:
+    path: /mnt/data  # Path on the node
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: static-media-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi

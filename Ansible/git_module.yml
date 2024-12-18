@@ -1,0 +1,13 @@
+---
+- name: Git module
+  hosts: localhost
+  gather_facts: no
+  become: yes
+  become_user: bimal
+  tasks:
+     - name: Git checkout
+       ansible.builtin.git:
+         repo: 'git@github.com:Bimalkhimdung/terraform_repo.git'
+         dest: /home/bimal/test
+         update: yes
+

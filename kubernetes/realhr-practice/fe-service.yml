@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service 
+metadata: 
+  name: fe-rhrs-service 
+spec: 
+  selector:
+    app: fe-rhrs 
+  ports: 
+    - protocol: TCP 
+      port: 80 
+      targetPort: 8080 
+  type: NodePort
