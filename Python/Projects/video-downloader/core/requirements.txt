@@ -4,3 +4,4 @@ psycopg2-binary
 requests
 yt-dlp
 python-dotenv
+ffmpeg

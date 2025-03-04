@@ -60,6 +60,24 @@
             background-color: #e68900;
         }
 
+        .progress-container {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 20px;
+            background: #4CAF50;
+            border-radius: 5px;
+            text-align: center;
+            color: white;
+            line-height: 20px;
+        }
+
         .message {
             margin-top: 15px;
             padding: 10px;
@@ -88,25 +106,71 @@
     <div class="container">
         <h2>🎬 YouTube Video Downloader</h2>
 
-        <form method="post">
+        <form id="downloadForm">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">📥 Download</button>
         </form>
 
-        {% if message %}
-            <p class="message {% if 'Error' in message %}error{% else %}success{% endif %}">
-                {{ message }}
-            </p>
-        {% endif %}
-        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+
+        <p id="statusMessage"></p>
+
         <p class="note">📂 Videos will be saved in your Downloads folder.</p>
     </div>
 
     <script>
-        window.onload = function() {
-            document.getElementById("id_url").value = "";
-        };
+        document.getElementById("downloadForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            let formData = new FormData(this);
+            let progressBar = document.getElementById("progressBar");
+            let progressContainer = document.querySelector(".progress-container");
+            let statusMessage = document.getElementById("statusMessage");
+
+            progressContainer.style.display = "block";  // Show progress bar
+
+            fetch("/download/", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status) {
+                    statusMessage.innerHTML = "<strong>Download started...</strong>";
+                    checkProgress();
+                } else {
+                    statusMessage.innerHTML = "<strong class='error'>Error: " + data.error + "</strong>";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+
+        function checkProgress() {
+            let progressBar = document.getElementById("progressBar");
+
+            fetch("{% url 'download_progress' %}")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.progress) {
+                        progressBar.style.width = data.progress;
+                        progressBar.innerText = data.progress;
+                    }
+                    
+                    if (data.progress !== "100%") {
+                        setTimeout(checkProgress, 1000);  // Update every second
+                    } else {
+                        progressBar.style.background = "#4CAF50";
+                        document.getElementById("statusMessage").innerHTML = "<strong class='success'>Download Complete!</strong>";
+                    }
+                });
+        }
     </script>
 
 </body>

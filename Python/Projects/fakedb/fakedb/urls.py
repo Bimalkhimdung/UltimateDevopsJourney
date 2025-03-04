@@ -1,5 +1,5 @@
 """
-URL configuration for core project.
+URL configuration for fakedb project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -16,17 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from youtube_downloader.views import download_video, custom_404_view, custom_500_view
-from youtube_downloader import views
-
-handler404 = custom_404_view
-handler500 = custom_500_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", download_video, name='download_video'),
-    path("download/",views.download_video, name="download_video"),
-    path('progress/',download_video, name='download_progress'),
-
-
 ]
