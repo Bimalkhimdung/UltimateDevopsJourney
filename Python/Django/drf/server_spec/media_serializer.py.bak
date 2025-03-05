@@ -6,45 +6,22 @@ from django.urls import path
 
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ALLOWED_DIRECTORIES = [
-    os.path.join(PROJECT_DIR, "media"),
-    os.path.join(PROJECT_DIR, "logs"),
-    ("/tmp")
-]
+MEDIA_DIR = os.path.join(PROJECT_DIR, "media")
 class MediaDirctorySerializer(serializers.Serializer):
     directory_path = serializers.CharField()
     total_size = serializers.CharField(required=False)
-    disk_usage = serializers.DictField(required=False)
-    def validate_directory_path(self, value):
-        print(f"Project dir:", PROJECT_DIR)
-        '''Check if the path is absolute or not '''
-        if  os.path.isabs(value):
-            print(f"path is abs", value)
-        else:
-            abs_path = os.path.join(PROJECT_DIR, value)
-
-
-            print(f"Abs path = ", abs_path)
-            if not any(abs_path.startswith(allowed + os.sep) or abs_path == allowed for allowed in ALLOWED_DIRECTORIES):
-                raise serializers.ValidationError(f"Access to this directory is not allowed: {abs_path}")
+    disk_usage = serializers.CharField(required=False)
     
-            if not os.path.exists(abs_path):
-                raise serializers.ValidationError(f" The provided path does not exist: {abs_path}")
-    
-            if not os.path.isdir(abs_path):
-                raise serializers.ValidationError(f"The provided path is not a valid directory: {abs_path}")
-    
-            return abs_path 
 
     def get_disk_usage(self, path):
         try:
             total, used, free = shutil.disk_usage(path)
-            return {
-                "Total": self.format_size(total),
-                "Used": self.format_size(used),
-                "Free": self.format_size(free),
-                "Used Percentage": f"{round((used / total) * 100, 2)}%"
-            }
+            return (
+                round(total),
+                round(used),
+                round(free),
+                round((used / total) * 100, 2)
+            )
         except Exception as e:
             return f"Error while getting disk usage, {e}"
 
@@ -79,7 +56,12 @@ class MediaDirctorySerializer(serializers.Serializer):
             disk_usage = self.get_disk_usage(directory_path)
             representation = super().to_representation(instance)
             representation['total_size'] = self.format_size(total_size)
-            representation['disk_usage'] = disk_usage
+            representation['disk_usage'] = {
+            "total": self.format_size(disk_usage[0]),
+            "used": self.format_size(disk_usage[1]),
+            "free": self.format_size(disk_usage[2]),
+            "usage_percentage": f"{disk_usage[3]:.2f}%"
+            }
             return representation
         return {}
 

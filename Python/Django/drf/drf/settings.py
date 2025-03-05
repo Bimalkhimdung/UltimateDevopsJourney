@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'core',
     'rest_framework',
     'django_extensions',
-    'bmi_calulator'
+    'server_spec',
 ]
 SHELL_PLUS = "ipython"
 
