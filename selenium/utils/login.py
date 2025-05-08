@@ -7,7 +7,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 import os
-import time
 
 load_dotenv()
 
@@ -18,7 +17,7 @@ def login():
   options.add_argument("--start-maximized")
   driver = webdriver.Chrome(service=service, options=options)
   try:
-    driver.get("https://demo.realhrsoft.com.np/account/login")  # Replace with your login page URL
+    driver.get("https://stage.realhrsoft.com/account/login")  # Replace with your login page URL
     username_field = WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located((By.ID, "id_email"))
     )

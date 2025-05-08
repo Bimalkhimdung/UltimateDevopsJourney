@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from login.login import *
+from login.login import login
 import time 
 
 def switch_emp_dir():

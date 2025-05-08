@@ -13,12 +13,24 @@ load_dotenv()
 
 # Set up Chrome driver
 def login():
+  """
+  Logs into the RealHRSoft system using the credentials provided in the .env file.
+
+  If the environment variables LOGIN_USER and LOGIN_PASSWORD are not set, the function will
+  use the default values of 'admin@realhrsoft.com' and 'RealHRsoft@456' respectively.
+
+  If the function is unable to login, it will raise an exception with a message indicating
+  the error.
+
+  Returns:
+    The selenium webdriver object that was used to login.
+  """
   service = Service('/usr/local/bin/chromedriver') 
   options = Options()
   options.add_argument("--start-maximized")
   driver = webdriver.Chrome(service=service, options=options)
   try:
-    driver.get("https://demo.realhrsoft.com.np/account/login")  # Replace with your login page URL
+    driver.get("https://stage.realhrsoft.com/account/login")  
     username_field = WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located((By.ID, "id_email"))
     )
