@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "my-app.fullname" . }}
+  labels:
+     {{- include "my-app.labels" . | nindent 4 }}
+spec:
+ replicas: {{ .Values.replicaCount }}
+ selector: 
+   matchLabels:
+      {{- include "my-app.selectorLabels" . | nindent 8 }}
+ template:
+   metadata:
+     labels: 
+        {{- include "my-app.selectorLabels" . | nindent 8 }}
+   spec:
+     container:
+        name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}: {{.Values.image.tag}}"
+        imagePullPloicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - name: http
+            contianerPort: 80
+            protocol: TCP
+        resource:
+           {{- toYaml .Values.resource | nindent 12 }}
+   

@@ -1,0 +1,19 @@
+replicaCount: 2
+image:
+  repository: nginx
+  tag: "1.21"
+  pullPolicy: IfNotPresent
+service:
+  type: NodePort
+  port: 80
+resource:
+  limits:
+     cpu: 100m
+     memory: 128Mi
+  request:
+     cpu: 100m
+     memory: 128Mi
+nodeSelector: {}
+tolerations: []
+affinity: {}
+

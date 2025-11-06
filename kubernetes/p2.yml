@@ -1,0 +1,9 @@
+apiVersion: autoscaling/v1
+kind: pod
+metadata:
+  name: this is test
+  namespace: development
+  lables: 
+    app: test1
+    env: development
+    

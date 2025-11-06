@@ -43,3 +43,9 @@ kubectl get pods -o wide -n production
 
 ## connect to  postgres db 
 kubectl exec -it postgres-db-67b78867c4-6bfp2 -n database -- psql -h localhost -U realhrsoft -d realhrsoft_db
+
+## Rollout History
+kubectl rollout history deploy/nginx-deploy
+
+## undo rollout
+kubectl rollout undo deploy/nginx-deploy
